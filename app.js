@@ -226,6 +226,158 @@ const WikipediaService = {
         return this.shuffle(selected);
     },
 
+    // ---- Custom Topic Search ----
+
+    // MediaWiki API helper
+    async wikiApi(params) {
+        const qs = new URLSearchParams({ format: 'json', origin: '*', ...params });
+        const r = await fetch(`https://en.wikipedia.org/w/api.php?${qs}`);
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+    },
+
+    // Search Wikipedia for pages related to the topic
+    async searchPages(topic) {
+        const data = await this.wikiApi({
+            action: 'query',
+            list: 'search',
+            srsearch: topic,
+            srlimit: 10,
+        });
+        return (data.query?.search || []).map(p => p.title);
+    },
+
+    // Fetch rendered HTML for a page and parse events from it.
+    // Works with tables (timeline pages), lists, and prose.
+    async fetchAndParsePageEvents(title) {
+        const slug = encodeURIComponent(title.replace(/ /g, '_'));
+        const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/html/${slug}`, {
+            headers: { 'Accept': 'text/html' }
+        });
+        if (!r.ok) return [];
+        const html = await r.text();
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+
+        const events = [];
+        const seen = new Set();
+
+        const addEvent = (year, text) => {
+            text = text.replace(/\[\d+\]/g, '').trim(); // strip citation brackets
+            text = text.split(/\.\s/)[0].trim();         // first sentence only
+            text = text.replace(/\.$/, '');
+            // Reject fragments: must start with uppercase or digit, not a conjunction/preposition
+            if (/^(and|but|or|nor|yet|so|the|which|that|while|as|also|with|from|for|to|by|at|it)\s/i.test(text) && /^[a-z]/.test(text)) {
+                return;
+            }
+            // Must start with uppercase letter or digit (skip sentence fragments)
+            if (text.length > 0 && !/^[A-Z0-9"'(]/.test(text)) {
+                return;
+            }
+            if (year > 100 && year <= 2024 && text.length >= 15 && text.length < 200 && !seen.has(year)) {
+                seen.add(year);
+                events.push({ year, text });
+            }
+        };
+
+        // Strategy 1: Parse table rows (timeline pages)
+        const rows = doc.querySelectorAll('tr');
+        for (const row of rows) {
+            const cells = row.querySelectorAll('td, th');
+            if (cells.length < 2) continue;
+            const firstText = cells[0].textContent.trim();
+            // Extract year from first cell (may contain full date like "4 October 1957")
+            const ym = firstText.match(/\b(\d{3,4})\b/);
+            if (!ym) continue;
+            const year = parseInt(ym[1]);
+            // Second cell is usually the event description
+            const desc = cells[1].textContent.trim();
+            if (desc.length >= 10) addEvent(year, desc);
+        }
+
+        // Strategy 2: Parse list items with years
+        const listItems = doc.querySelectorAll('li');
+        for (const li of listItems) {
+            const text = li.textContent.trim();
+            // "YYYY – description"
+            let m = text.match(/^(\d{3,4})\s*[–\-—:]+\s*(.+)/);
+            if (m) { addEvent(parseInt(m[1]), m[2]); continue; }
+            // "In YYYY, description"
+            m = text.match(/^[Ii]n\s+(\d{3,4}),?\s+(.{15,})/);
+            if (m) { addEvent(parseInt(m[1]), m[2]); }
+        }
+
+        // Strategy 3: Parse paragraphs — extract sentences starting with "In YYYY"
+        const paras = doc.querySelectorAll('p');
+        for (const p of paras) {
+            const text = p.textContent.trim();
+            // Split into sentences and look for ones starting with "In YYYY"
+            const sentences = text.split(/(?<=\.)\s+/);
+            for (const sentence of sentences) {
+                const m = sentence.match(/^[Ii]n\s+(\d{3,4}),?\s+(.{15,})/);
+                if (m) addEvent(parseInt(m[1]), m[2]);
+            }
+        }
+
+        return events;
+    },
+
+    // Main entry: search Wikipedia for topic-related events
+    async searchTopicEvents(topic, statusCallback) {
+        if (statusCallback) statusCallback(`Searching Wikipedia for "${topic}"...`);
+
+        // Strategy: search for "Timeline of X", "History of X", and plain "X"
+        const searchQueries = [
+            `Timeline of ${topic}`,
+            `History of ${topic}`,
+            topic,
+        ];
+
+        // Find relevant page titles
+        let allTitles = [];
+        for (const q of searchQueries) {
+            try {
+                const titles = await this.searchPages(q);
+                allTitles.push(...titles);
+            } catch { /* continue */ }
+        }
+
+        // Deduplicate titles, prioritise timeline/history pages
+        const uniqueTitles = [...new Set(allTitles)];
+        uniqueTitles.sort((a, b) => {
+            const scoreA = /^(timeline|history)/i.test(a) ? 0 : 1;
+            const scoreB = /^(timeline|history)/i.test(b) ? 0 : 1;
+            return scoreA - scoreB;
+        });
+
+        // Fetch content from top pages (limit to 5 to be respectful of API)
+        const pagesToFetch = uniqueTitles.slice(0, 5);
+        let allEvents = [];
+
+        const promises = pagesToFetch.map(async (title) => {
+            if (statusCallback) statusCallback(`Reading "${title}"...`);
+            try {
+                return await this.fetchAndParsePageEvents(title);
+            } catch {
+                return [];
+            }
+        });
+
+        const results = await Promise.all(promises);
+        allEvents = results.flat();
+
+        // Deduplicate by year (keep first occurrence — timeline pages are parsed first)
+        const byYear = new Map();
+        for (const e of allEvents) {
+            if (!byYear.has(e.year)) {
+                byYear.set(e.year, e);
+            }
+        }
+
+        const unique = Array.from(byYear.values());
+        if (statusCallback) statusCallback(`Found ${unique.length} events`);
+        return this.selectDiverse(unique, EVENTS_PER_GAME);
+    },
+
     shuffle(arr) {
         const a = [...arr];
         this.shuffleInPlace(a);
@@ -361,7 +513,31 @@ class GameUI {
             });
         });
 
+        // Custom topic mode
+        const customBtn = document.getElementById('btn-custom');
+        const customArea = document.getElementById('custom-input-area');
+        const customInput = document.getElementById('custom-topic');
+        const customGo = document.getElementById('btn-go');
+        const customError = document.getElementById('custom-error');
+
+        customBtn.addEventListener('click', () => {
+            customArea.classList.toggle('hidden');
+            customError.classList.add('hidden');
+            if (!customArea.classList.contains('hidden')) {
+                customInput.focus();
+            }
+        });
+
+        customGo.addEventListener('click', () => this.startCustomGame());
+        customInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') this.startCustomGame();
+        });
+
         document.getElementById('btn-replay').addEventListener('click', () => {
+            // Reset the custom input area when returning to start
+            customArea.classList.add('hidden');
+            customError.classList.add('hidden');
+            customInput.value = '';
             this.showScreen('start');
         });
     }
@@ -414,6 +590,44 @@ class GameUI {
         }
 
         this.game.init(events, difficulty);
+        this.showScreen('game');
+        this.renderAll();
+    }
+
+    async startCustomGame() {
+        const input = document.getElementById('custom-topic');
+        const errorEl = document.getElementById('custom-error');
+        const topic = input.value.trim();
+
+        if (!topic) {
+            errorEl.textContent = 'Please enter a topic.';
+            errorEl.classList.remove('hidden');
+            return;
+        }
+
+        errorEl.classList.add('hidden');
+        this.showScreen('loading');
+
+        let events;
+        try {
+            events = await WikipediaService.searchTopicEvents(topic, (status) => {
+                this.loadingStatus.textContent = status;
+            });
+        } catch {
+            events = [];
+        }
+
+        if (events.length < 5) {
+            // Not enough events found — go back and show error
+            this.showScreen('start');
+            document.getElementById('custom-input-area').classList.remove('hidden');
+            errorEl.textContent = `Only found ${events.length} events for "${topic}". Try a broader topic.`;
+            errorEl.classList.remove('hidden');
+            return;
+        }
+
+        this.game.init(events, 'custom');
+        this.game.topicName = topic;
         this.showScreen('game');
         this.renderAll();
     }
@@ -571,10 +785,17 @@ class GameUI {
     }
 
     getGameOverMessage(score, isWin, difficulty) {
+        const topicName = this.game.topicName;
         if (isWin) {
+            if (difficulty === 'custom') return `Perfect! You nailed every "${topicName}" event!`;
             if (difficulty === 'hard') return "Incredible! You mastered the hardest events!";
             if (difficulty === 'medium') return "Impressive — you nailed every event!";
             return "Perfect run! Ready for a harder challenge?";
+        }
+        if (difficulty === 'custom') {
+            if (score <= 2) return `"${topicName}" is trickier than you thought!`;
+            if (score <= 5) return `Not bad for "${topicName}"! Give it another shot.`;
+            return `Impressive "${topicName}" knowledge!`;
         }
         if (score <= 2) return "History is full of surprises — try again!";
         if (score <= 5) return "Not bad! You've got some historical sense.";

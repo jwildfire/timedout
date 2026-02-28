@@ -170,6 +170,131 @@ body {
     transform: translateY(0);
 }
 
+/* ============ Custom Topic Mode ============ */
+.custom-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.2rem 0;
+    color: var(--text-body);
+    opacity: 0.4;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.custom-divider::before,
+.custom-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--text-body);
+    opacity: 0.3;
+}
+
+.btn-custom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    background: var(--bg-card-dark);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: var(--font-body);
+}
+
+.btn-custom .custom-icon {
+    font-size: 1.1rem;
+}
+
+.btn-custom .custom-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-heading);
+}
+
+.btn-custom:hover {
+    border-color: #7c5cbf;
+    box-shadow: 0 4px 24px rgba(124, 92, 191, 0.25);
+    transform: translateY(-2px);
+}
+
+.btn-custom:active {
+    transform: translateY(0);
+}
+
+.custom-input-area {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+    animation: fadeInUp 0.3s ease;
+}
+
+.custom-input-area.hidden {
+    display: none;
+}
+
+.custom-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-heading);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.custom-input::placeholder {
+    color: var(--text-body);
+    opacity: 0.5;
+}
+
+.custom-input:focus {
+    border-color: #7c5cbf;
+}
+
+.btn-go {
+    padding: 0.75rem 1.3rem;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #7c5cbf, #6a4fb0);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-go:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(124, 92, 191, 0.3);
+}
+
+.btn-go:active {
+    transform: translateY(0);
+}
+
+.custom-error {
+    margin-top: 0.6rem;
+    font-size: 0.8rem;
+    color: var(--wrong);
+    text-align: center;
+    animation: fadeInUp 0.3s ease;
+}
+
+.custom-error.hidden {
+    display: none;
+}
+
 /* ============ Buttons ============ */
 .btn-primary {
     font-family: var(--font-body);
