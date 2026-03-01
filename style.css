@@ -48,6 +48,7 @@ body {
     visibility: hidden;
     transition: opacity 0.4s ease, visibility 0.4s ease;
     z-index: 1;
+    overflow-y: auto;
 }
 
 .screen.active {
@@ -57,10 +58,16 @@ body {
 }
 
 /* ============ Start Screen ============ */
+#screen-start {
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
 .start-content {
     text-align: center;
     padding: 2rem;
     max-width: 480px;
+    margin: auto;
 }
 
 .logo-icon {
@@ -170,7 +177,70 @@ body {
     transform: translateY(0);
 }
 
-/* ============ Custom Topic Mode ============ */
+/* ============ Event Count Picker ============ */
+.event-count-picker {
+    margin-top: 1.2rem;
+    text-align: center;
+}
+
+.event-count-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-body);
+}
+
+.event-count-label span {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.event-count-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+    margin: 0.6rem 0 0.2rem;
+}
+
+.event-count-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(255, 137, 6, 0.4);
+    transition: transform 0.15s ease;
+}
+
+.event-count-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.event-count-slider::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 8px rgba(255, 137, 6, 0.4);
+}
+
+.event-count-range {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: var(--text-body);
+    opacity: 0.4;
+}
+
+/* ============ Topic Categories ============ */
 .custom-divider {
     display: flex;
     align-items: center;
@@ -192,107 +262,34 @@ body {
     opacity: 0.3;
 }
 
-.btn-custom {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.category-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
-    width: 100%;
-    padding: 0.8rem 1.2rem;
+}
+
+.btn-category {
+    padding: 0.6rem 0.8rem;
     border: 2px solid rgba(255, 255, 255, 0.08);
-    border-radius: 14px;
+    border-radius: 10px;
     background: var(--bg-card-dark);
-    cursor: pointer;
-    transition: all 0.25s ease;
-    font-family: var(--font-body);
-}
-
-.btn-custom .custom-icon {
-    font-size: 1.1rem;
-}
-
-.btn-custom .custom-label {
-    font-size: 0.95rem;
-    font-weight: 600;
     color: var(--text-heading);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
 }
 
-.btn-custom:hover {
+.btn-category:hover {
     border-color: #7c5cbf;
-    box-shadow: 0 4px 24px rgba(124, 92, 191, 0.25);
+    box-shadow: 0 3px 16px rgba(124, 92, 191, 0.25);
     transform: translateY(-2px);
 }
 
-.btn-custom:active {
+.btn-category:active {
     transform: translateY(0);
-}
-
-.custom-input-area {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 0.8rem;
-    animation: fadeInUp 0.3s ease;
-}
-
-.custom-input-area.hidden {
-    display: none;
-}
-
-.custom-input {
-    flex: 1;
-    padding: 0.75rem 1rem;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--text-heading);
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    outline: none;
-    transition: border-color 0.2s ease;
-}
-
-.custom-input::placeholder {
-    color: var(--text-body);
-    opacity: 0.5;
-}
-
-.custom-input:focus {
-    border-color: #7c5cbf;
-}
-
-.btn-go {
-    padding: 0.75rem 1.3rem;
-    border: none;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #7c5cbf, #6a4fb0);
-    color: #fff;
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-}
-
-.btn-go:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(124, 92, 191, 0.3);
-}
-
-.btn-go:active {
-    transform: translateY(0);
-}
-
-.custom-error {
-    margin-top: 0.6rem;
-    font-size: 0.8rem;
-    color: var(--wrong);
-    text-align: center;
-    animation: fadeInUp 0.3s ease;
-}
-
-.custom-error.hidden {
-    display: none;
 }
 
 /* ============ Buttons ============ */

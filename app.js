@@ -189,6 +189,310 @@ const HARD_EVENTS = [
 
 const EVENT_POOLS = { easy: EASY_EVENTS, medium: MEDIUM_EVENTS, hard: HARD_EVENTS };
 
+// ============ Topic Category Pools ============
+const CATEGORY_POOLS = {
+    presidents: {
+        name: "US Presidents",
+        events: [
+            { year: 1789, text: "George Washington is inaugurated as the first US President" },
+            { year: 1801, text: "Thomas Jefferson becomes the third President" },
+            { year: 1809, text: "James Madison takes office as the fourth President" },
+            { year: 1829, text: "Andrew Jackson is inaugurated, ushering in populist politics" },
+            { year: 1841, text: "William Henry Harrison dies just 31 days into his presidency" },
+            { year: 1861, text: "Abraham Lincoln takes office on the eve of the Civil War" },
+            { year: 1865, text: "Abraham Lincoln is assassinated at Ford's Theatre" },
+            { year: 1901, text: "Theodore Roosevelt becomes President after McKinley's assassination" },
+            { year: 1913, text: "Woodrow Wilson is inaugurated as the 28th President" },
+            { year: 1933, text: "Franklin D. Roosevelt takes office during the Great Depression" },
+            { year: 1945, text: "Harry Truman becomes President after FDR's death" },
+            { year: 1953, text: "Dwight D. Eisenhower is inaugurated as President" },
+            { year: 1961, text: "John F. Kennedy delivers his famous inaugural address" },
+            { year: 1963, text: "John F. Kennedy is assassinated in Dallas, Texas" },
+            { year: 1969, text: "Richard Nixon is inaugurated as the 37th President" },
+            { year: 1974, text: "Richard Nixon resigns over the Watergate scandal" },
+            { year: 1977, text: "Jimmy Carter is inaugurated as the 39th President" },
+            { year: 1981, text: "Ronald Reagan is inaugurated as the 40th President" },
+            { year: 1989, text: "George H.W. Bush takes office as the 41st President" },
+            { year: 1993, text: "Bill Clinton is inaugurated as the 42nd President" },
+            { year: 2001, text: "George W. Bush is inaugurated as the 43rd President" },
+            { year: 2009, text: "Barack Obama becomes the first Black President of the United States" },
+            { year: 2017, text: "Donald Trump is inaugurated as the 45th President" },
+            { year: 2021, text: "Joe Biden is inaugurated as the 46th President" },
+            { year: 1803, text: "Thomas Jefferson completes the Louisiana Purchase" },
+        ],
+    },
+    space: {
+        name: "Space Exploration",
+        events: [
+            { year: 1957, text: "The Soviet Union launches Sputnik, the first artificial satellite" },
+            { year: 1958, text: "NASA is established by the United States" },
+            { year: 1961, text: "Yuri Gagarin becomes the first human in space" },
+            { year: 1962, text: "John Glenn becomes the first American to orbit the Earth" },
+            { year: 1965, text: "Alexei Leonov performs the first spacewalk" },
+            { year: 1966, text: "The Soviet Luna 9 makes the first soft landing on the Moon" },
+            { year: 1969, text: "Neil Armstrong and Buzz Aldrin walk on the Moon" },
+            { year: 1970, text: "Apollo 13 suffers an explosion but crew returns safely" },
+            { year: 1971, text: "The Soviet Union launches Salyut 1, the first space station" },
+            { year: 1973, text: "NASA launches Skylab, America's first space station" },
+            { year: 1976, text: "Viking 1 lands on Mars and sends back the first surface photos" },
+            { year: 1977, text: "Voyager 1 and Voyager 2 are launched toward the outer planets" },
+            { year: 1981, text: "The Space Shuttle Columbia makes its first flight" },
+            { year: 1986, text: "The Space Shuttle Challenger breaks apart after launch" },
+            { year: 1990, text: "The Hubble Space Telescope is launched into orbit" },
+            { year: 1998, text: "Construction of the International Space Station begins" },
+            { year: 2003, text: "The Space Shuttle Columbia disintegrates during re-entry" },
+            { year: 2004, text: "SpaceShipOne wins the X Prize for private spaceflight" },
+            { year: 2006, text: "Pluto is reclassified as a dwarf planet" },
+            { year: 2011, text: "The Space Shuttle program ends with Atlantis's final mission" },
+            { year: 2012, text: "The Curiosity rover lands on Mars" },
+            { year: 2015, text: "New Horizons flies by Pluto, sending back detailed images" },
+            { year: 2020, text: "SpaceX Crew Dragon carries astronauts to the ISS" },
+            { year: 2021, text: "The James Webb Space Telescope is launched" },
+            { year: 1996, text: "NASA announces possible evidence of life in a Martian meteorite" },
+        ],
+    },
+    videogames: {
+        name: "Video Games",
+        events: [
+            { year: 1972, text: "Pong is released, becoming the first major arcade hit" },
+            { year: 1977, text: "The Atari 2600 home console is released" },
+            { year: 1978, text: "Space Invaders launches in arcades and becomes a phenomenon" },
+            { year: 1980, text: "Pac-Man is released and becomes a cultural icon" },
+            { year: 1981, text: "Donkey Kong introduces Mario for the first time" },
+            { year: 1983, text: "The North American video game market crashes" },
+            { year: 1985, text: "Nintendo releases the NES and Super Mario Bros." },
+            { year: 1989, text: "Nintendo releases the Game Boy handheld console" },
+            { year: 1991, text: "Sonic the Hedgehog debuts on the Sega Genesis" },
+            { year: 1993, text: "Doom is released and popularizes the first-person shooter" },
+            { year: 1994, text: "Sony launches the PlayStation console" },
+            { year: 1996, text: "Nintendo 64 launches with Super Mario 64" },
+            { year: 1997, text: "Final Fantasy VII is released and becomes a landmark RPG" },
+            { year: 1998, text: "The Legend of Zelda: Ocarina of Time is released" },
+            { year: 2000, text: "Sony releases the PlayStation 2, the best-selling console ever" },
+            { year: 2001, text: "Microsoft enters gaming with the Xbox" },
+            { year: 2004, text: "World of Warcraft launches and revolutionizes online gaming" },
+            { year: 2006, text: "Nintendo Wii brings motion controls to the mainstream" },
+            { year: 2007, text: "The first iPhone transforms mobile gaming" },
+            { year: 2011, text: "Minecraft is officially released after years of development" },
+            { year: 2013, text: "PlayStation 4 and Xbox One launch the eighth console generation" },
+            { year: 2016, text: "Pokemon Go creates a worldwide augmented reality craze" },
+            { year: 2017, text: "Nintendo Switch launches as a hybrid console" },
+            { year: 2020, text: "PlayStation 5 and Xbox Series X launch the ninth generation" },
+            { year: 2023, text: "The Legend of Zelda: Tears of the Kingdom is released" },
+        ],
+    },
+    wars: {
+        name: "Wars & Conflicts",
+        events: [
+            { year: 1066, text: "The Battle of Hastings marks the Norman conquest of England" },
+            { year: 1337, text: "The Hundred Years' War begins between England and France" },
+            { year: 1453, text: "Constantinople falls to the Ottoman Turks" },
+            { year: 1588, text: "The English Navy defeats the Spanish Armada" },
+            { year: 1776, text: "The American Revolution is formalized with the Declaration of Independence" },
+            { year: 1805, text: "The Battle of Trafalgar establishes British naval supremacy" },
+            { year: 1815, text: "Napoleon is defeated at the Battle of Waterloo" },
+            { year: 1861, text: "The American Civil War begins at Fort Sumter" },
+            { year: 1865, text: "The American Civil War ends with Lee's surrender at Appomattox" },
+            { year: 1898, text: "The Spanish-American War begins" },
+            { year: 1914, text: "World War I begins after the assassination of Archduke Franz Ferdinand" },
+            { year: 1918, text: "World War I ends with the signing of the Armistice" },
+            { year: 1939, text: "World War II begins as Germany invades Poland" },
+            { year: 1941, text: "Japan attacks Pearl Harbor" },
+            { year: 1944, text: "Allied forces storm the beaches of Normandy on D-Day" },
+            { year: 1945, text: "World War II ends after the atomic bombings of Japan" },
+            { year: 1950, text: "The Korean War begins" },
+            { year: 1955, text: "The Vietnam War begins with US military advisors in South Vietnam" },
+            { year: 1962, text: "The Cuban Missile Crisis brings the world to the brink of nuclear war" },
+            { year: 1975, text: "The Vietnam War ends with the fall of Saigon" },
+            { year: 1990, text: "Iraq invades Kuwait, triggering the Gulf War" },
+            { year: 2001, text: "The US invades Afghanistan after the September 11 attacks" },
+            { year: 2003, text: "The US-led invasion of Iraq begins" },
+            { year: 2011, text: "The Syrian Civil War begins" },
+            { year: 2022, text: "Russia invades Ukraine" },
+        ],
+    },
+    sports: {
+        name: "Sports",
+        events: [
+            { year: 1896, text: "The first modern Olympic Games are held in Athens" },
+            { year: 1903, text: "The first Tour de France cycling race takes place" },
+            { year: 1930, text: "The first FIFA World Cup is held in Uruguay" },
+            { year: 1936, text: "Jesse Owens wins four gold medals at the Berlin Olympics" },
+            { year: 1947, text: "Jackie Robinson breaks baseball's color barrier" },
+            { year: 1954, text: "Roger Bannister runs the first sub-four-minute mile" },
+            { year: 1958, text: "A 17-year-old Pele leads Brazil to the World Cup title" },
+            { year: 1960, text: "Muhammad Ali wins his first Olympic gold medal" },
+            { year: 1966, text: "England wins the FIFA World Cup on home soil" },
+            { year: 1967, text: "The first Super Bowl is played between the NFL and AFL champions" },
+            { year: 1972, text: "Mark Spitz wins seven gold medals at the Munich Olympics" },
+            { year: 1974, text: "Muhammad Ali defeats George Foreman in the Rumble in the Jungle" },
+            { year: 1980, text: "The US hockey team defeats the Soviets in the Miracle on Ice" },
+            { year: 1984, text: "Carl Lewis wins four gold medals at the Los Angeles Olympics" },
+            { year: 1992, text: "The NBA Dream Team dominates basketball at the Barcelona Olympics" },
+            { year: 1995, text: "South Africa wins the Rugby World Cup, uniting the post-apartheid nation" },
+            { year: 1997, text: "Tiger Woods wins the Masters at age 21" },
+            { year: 2002, text: "The Winter Olympics are held in Salt Lake City" },
+            { year: 2008, text: "Michael Phelps wins eight gold medals at the Beijing Olympics" },
+            { year: 2009, text: "Usain Bolt sets the 100m world record at 9.58 seconds" },
+            { year: 2010, text: "Spain wins its first FIFA World Cup" },
+            { year: 2012, text: "The London Olympics open with a spectacular ceremony" },
+            { year: 2016, text: "Leicester City wins the Premier League against 5000-to-1 odds" },
+            { year: 2020, text: "The Tokyo Olympics are held a year late due to the pandemic" },
+            { year: 2022, text: "Argentina wins the FIFA World Cup in Qatar" },
+        ],
+    },
+    music: {
+        name: "Music",
+        events: [
+            { year: 1877, text: "Thomas Edison invents the phonograph" },
+            { year: 1927, text: "The first electronic television demonstration takes place" },
+            { year: 1948, text: "The vinyl LP record is introduced by Columbia Records" },
+            { year: 1954, text: "Elvis Presley records his first single at Sun Records" },
+            { year: 1959, text: "The Day the Music Died: Buddy Holly, Ritchie Valens, and the Big Bopper die in a plane crash" },
+            { year: 1962, text: "The Beatles release their first single, Love Me Do" },
+            { year: 1964, text: "The Beatles appear on The Ed Sullivan Show" },
+            { year: 1967, text: "The Beatles release Sgt. Pepper's Lonely Hearts Club Band" },
+            { year: 1969, text: "The Woodstock music festival draws 400,000 people" },
+            { year: 1973, text: "Pink Floyd releases The Dark Side of the Moon" },
+            { year: 1975, text: "Queen releases Bohemian Rhapsody" },
+            { year: 1977, text: "Elvis Presley dies at Graceland" },
+            { year: 1979, text: "Sony introduces the Walkman portable cassette player" },
+            { year: 1981, text: "MTV launches with Video Killed the Radio Star" },
+            { year: 1982, text: "Michael Jackson releases Thriller, the best-selling album ever" },
+            { year: 1985, text: "Live Aid concerts raise money for Ethiopian famine relief" },
+            { year: 1991, text: "Nirvana releases Nevermind, launching the grunge movement" },
+            { year: 1994, text: "Kurt Cobain dies at age 27" },
+            { year: 1999, text: "Napster launches and disrupts the music industry" },
+            { year: 2001, text: "Apple launches the iPod" },
+            { year: 2003, text: "The iTunes Store opens, selling digital music" },
+            { year: 2008, text: "Spotify launches in Sweden" },
+            { year: 2015, text: "Adele's album 25 sells over 3 million copies in its first week" },
+            { year: 2017, text: "Streaming surpasses all other forms of music consumption" },
+            { year: 2020, text: "BTS becomes the first K-pop group to top the US Billboard chart" },
+        ],
+    },
+    movies: {
+        name: "Movies & TV",
+        events: [
+            { year: 1895, text: "The Lumiere brothers hold the first public film screening" },
+            { year: 1927, text: "The Jazz Singer becomes the first major talking picture" },
+            { year: 1928, text: "Walt Disney debuts Mickey Mouse in Steamboat Willie" },
+            { year: 1939, text: "The Wizard of Oz and Gone with the Wind premiere" },
+            { year: 1941, text: "Citizen Kane is released, later hailed as the greatest film ever" },
+            { year: 1951, text: "I Love Lucy premieres and transforms television comedy" },
+            { year: 1955, text: "Disneyland opens in Anaheim, California" },
+            { year: 1963, text: "Doctor Who premieres on the BBC" },
+            { year: 1968, text: "2001: A Space Odyssey revolutionizes science fiction cinema" },
+            { year: 1972, text: "The Godfather is released and becomes a cultural landmark" },
+            { year: 1975, text: "Jaws becomes the first summer blockbuster" },
+            { year: 1977, text: "Star Wars is released and changes cinema forever" },
+            { year: 1982, text: "E.T. the Extra-Terrestrial becomes the highest-grossing film" },
+            { year: 1984, text: "The Terminator is released" },
+            { year: 1989, text: "The Simpsons debuts on Fox" },
+            { year: 1993, text: "Jurassic Park pioneers CGI effects in blockbuster filmmaking" },
+            { year: 1994, text: "The Shawshank Redemption and Pulp Fiction are released" },
+            { year: 1997, text: "Titanic becomes the highest-grossing film of all time" },
+            { year: 1999, text: "The Matrix introduces bullet time to cinema" },
+            { year: 2001, text: "The Lord of the Rings: The Fellowship of the Ring premieres" },
+            { year: 2008, text: "The Dark Knight redefines superhero films" },
+            { year: 2009, text: "Avatar breaks box office records with 3D filmmaking" },
+            { year: 2013, text: "Frozen becomes Disney's highest-grossing animated film" },
+            { year: 2019, text: "Avengers: Endgame becomes the highest-grossing film ever" },
+            { year: 2022, text: "Top Gun: Maverick becomes a massive box office hit" },
+        ],
+    },
+    science: {
+        name: "Science & Discovery",
+        events: [
+            { year: 1543, text: "Copernicus publishes his theory that the Earth revolves around the Sun" },
+            { year: 1610, text: "Galileo observes the moons of Jupiter through his telescope" },
+            { year: 1665, text: "Isaac Newton develops his theory of gravity" },
+            { year: 1687, text: "Newton publishes his Principia Mathematica" },
+            { year: 1752, text: "Benjamin Franklin proves lightning is electrical" },
+            { year: 1796, text: "Edward Jenner develops the first smallpox vaccine" },
+            { year: 1831, text: "Michael Faraday discovers electromagnetic induction" },
+            { year: 1859, text: "Charles Darwin publishes On the Origin of Species" },
+            { year: 1869, text: "Dmitri Mendeleev creates the periodic table of elements" },
+            { year: 1895, text: "Wilhelm Rontgen discovers X-rays" },
+            { year: 1898, text: "Marie Curie discovers radium and polonium" },
+            { year: 1905, text: "Albert Einstein publishes his special theory of relativity" },
+            { year: 1915, text: "Einstein publishes his general theory of relativity" },
+            { year: 1928, text: "Alexander Fleming discovers penicillin" },
+            { year: 1938, text: "Nuclear fission is discovered" },
+            { year: 1947, text: "The transistor is invented at Bell Labs" },
+            { year: 1953, text: "Watson and Crick discover the structure of DNA" },
+            { year: 1964, text: "The existence of the Higgs boson is theorized" },
+            { year: 1969, text: "ARPANET sends its first message, laying the foundation for the internet" },
+            { year: 1990, text: "Tim Berners-Lee invents the World Wide Web" },
+            { year: 1996, text: "Dolly the sheep becomes the first cloned mammal" },
+            { year: 2003, text: "The Human Genome Project is completed" },
+            { year: 2012, text: "The Higgs boson particle is confirmed at CERN" },
+            { year: 2020, text: "COVID-19 mRNA vaccines are developed in record time" },
+            { year: 2022, text: "The first image from the James Webb Space Telescope is released" },
+        ],
+    },
+    ancient: {
+        name: "Ancient World",
+        events: [
+            { year: 3000, text: "The first Egyptian hieroglyphs are developed" },
+            { year: 2560, text: "The Great Pyramid of Giza is completed" },
+            { year: 1754, text: "The Code of Hammurabi is written in Babylon" },
+            { year: 1333, text: "Tutankhamun becomes pharaoh of Egypt at age nine" },
+            { year: 776, text: "The first recorded Olympic Games are held in Greece" },
+            { year: 753, text: "Rome is traditionally said to have been founded" },
+            { year: 509, text: "The Roman Republic is established" },
+            { year: 490, text: "The Greeks defeat the Persians at the Battle of Marathon" },
+            { year: 447, text: "Construction of the Parthenon begins in Athens" },
+            { year: 336, text: "Alexander the Great becomes King of Macedon" },
+            { year: 323, text: "Alexander the Great dies in Babylon at age 32" },
+            { year: 221, text: "Qin Shi Huang unifies China and begins the Great Wall" },
+            { year: 218, text: "Hannibal crosses the Alps with war elephants to attack Rome" },
+            { year: 146, text: "Rome destroys Carthage, ending the Punic Wars" },
+            { year: 44, text: "Julius Caesar is assassinated on the Ides of March" },
+            { year: 27, text: "Augustus becomes the first Roman Emperor" },
+            { year: 79, text: "Mount Vesuvius erupts and buries the city of Pompeii" },
+            { year: 117, text: "The Roman Empire reaches its greatest territorial extent" },
+            { year: 313, text: "Emperor Constantine legalizes Christianity in the Roman Empire" },
+            { year: 330, text: "Constantinople is founded as the new Roman capital" },
+            { year: 410, text: "The Visigoths sack Rome" },
+            { year: 476, text: "The Western Roman Empire falls" },
+            { year: 622, text: "The Prophet Muhammad migrates to Medina" },
+            { year: 800, text: "Charlemagne is crowned Emperor of the Romans" },
+            { year: 1066, text: "William the Conqueror wins the Battle of Hastings" },
+        ],
+    },
+    food: {
+        name: "Food & Drink",
+        events: [
+            { year: 1502, text: "Columbus encounters cocoa beans in the Americas" },
+            { year: 1615, text: "Coffee becomes popular in Venice, Italy" },
+            { year: 1652, text: "The first coffeehouse opens in London" },
+            { year: 1765, text: "The sandwich is invented by the Earl of Sandwich" },
+            { year: 1795, text: "Nicolas Appert develops food preservation using sealed jars" },
+            { year: 1830, text: "The first modern restaurant guide is published in Paris" },
+            { year: 1853, text: "Potato chips are invented in Saratoga Springs, New York" },
+            { year: 1856, text: "Gail Borden patents condensed milk" },
+            { year: 1876, text: "Heinz introduces bottled ketchup" },
+            { year: 1886, text: "Coca-Cola is first served at a pharmacy in Atlanta" },
+            { year: 1891, text: "The first electric oven is patented" },
+            { year: 1904, text: "The ice cream cone is popularized at the St. Louis World's Fair" },
+            { year: 1906, text: "The US Pure Food and Drug Act is passed" },
+            { year: 1920, text: "Prohibition bans alcohol in the United States" },
+            { year: 1928, text: "Sliced bread is sold for the first time" },
+            { year: 1937, text: "Spam canned meat is introduced by Hormel" },
+            { year: 1940, text: "The first McDonald's restaurant opens in San Bernardino" },
+            { year: 1946, text: "The first microwave oven is sold commercially" },
+            { year: 1952, text: "The first Kentucky Fried Chicken franchise opens" },
+            { year: 1958, text: "Instant ramen noodles are invented in Japan" },
+            { year: 1961, text: "Julia Child premieres her cooking show on American television" },
+            { year: 1971, text: "The first Starbucks opens in Seattle" },
+            { year: 1983, text: "The first Diet Coke is sold" },
+            { year: 1994, text: "Amazon starts as an online bookstore, later transforming food delivery" },
+            { year: 2004, text: "Super Size Me documentary changes fast food conversations" },
+        ],
+    },
+};
+
 // ============ Wikipedia Service ============
 const WikipediaService = {
     getRandomDates(count) {
@@ -313,158 +617,6 @@ const WikipediaService = {
         }
 
         return this.shuffle(selected);
-    },
-
-    // ---- Custom Topic Search ----
-
-    // MediaWiki API helper
-    async wikiApi(params) {
-        const qs = new URLSearchParams({ format: 'json', origin: '*', ...params });
-        const r = await fetch(`https://en.wikipedia.org/w/api.php?${qs}`);
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-    },
-
-    // Search Wikipedia for pages related to the topic
-    async searchPages(topic) {
-        const data = await this.wikiApi({
-            action: 'query',
-            list: 'search',
-            srsearch: topic,
-            srlimit: 10,
-        });
-        return (data.query?.search || []).map(p => p.title);
-    },
-
-    // Fetch rendered HTML for a page and parse events from it.
-    // Works with tables (timeline pages), lists, and prose.
-    async fetchAndParsePageEvents(title) {
-        const slug = encodeURIComponent(title.replace(/ /g, '_'));
-        const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/html/${slug}`, {
-            headers: { 'Accept': 'text/html' }
-        });
-        if (!r.ok) return [];
-        const html = await r.text();
-        const doc = new DOMParser().parseFromString(html, 'text/html');
-
-        const events = [];
-        const seen = new Set();
-
-        const addEvent = (year, text) => {
-            text = text.replace(/\[\d+\]/g, '').trim(); // strip citation brackets
-            text = text.split(/\.\s/)[0].trim();         // first sentence only
-            text = text.replace(/\.$/, '');
-            // Reject fragments: must start with uppercase or digit, not a conjunction/preposition
-            if (/^(and|but|or|nor|yet|so|the|which|that|while|as|also|with|from|for|to|by|at|it)\s/i.test(text) && /^[a-z]/.test(text)) {
-                return;
-            }
-            // Must start with uppercase letter or digit (skip sentence fragments)
-            if (text.length > 0 && !/^[A-Z0-9"'(]/.test(text)) {
-                return;
-            }
-            if (year > 100 && year <= 2024 && text.length >= 15 && text.length < 200 && !seen.has(year)) {
-                seen.add(year);
-                events.push({ year, text });
-            }
-        };
-
-        // Strategy 1: Parse table rows (timeline pages)
-        const rows = doc.querySelectorAll('tr');
-        for (const row of rows) {
-            const cells = row.querySelectorAll('td, th');
-            if (cells.length < 2) continue;
-            const firstText = cells[0].textContent.trim();
-            // Extract year from first cell (may contain full date like "4 October 1957")
-            const ym = firstText.match(/\b(\d{3,4})\b/);
-            if (!ym) continue;
-            const year = parseInt(ym[1]);
-            // Second cell is usually the event description
-            const desc = cells[1].textContent.trim();
-            if (desc.length >= 10) addEvent(year, desc);
-        }
-
-        // Strategy 2: Parse list items with years
-        const listItems = doc.querySelectorAll('li');
-        for (const li of listItems) {
-            const text = li.textContent.trim();
-            // "YYYY – description"
-            let m = text.match(/^(\d{3,4})\s*[–\-—:]+\s*(.+)/);
-            if (m) { addEvent(parseInt(m[1]), m[2]); continue; }
-            // "In YYYY, description"
-            m = text.match(/^[Ii]n\s+(\d{3,4}),?\s+(.{15,})/);
-            if (m) { addEvent(parseInt(m[1]), m[2]); }
-        }
-
-        // Strategy 3: Parse paragraphs — extract sentences starting with "In YYYY"
-        const paras = doc.querySelectorAll('p');
-        for (const p of paras) {
-            const text = p.textContent.trim();
-            // Split into sentences and look for ones starting with "In YYYY"
-            const sentences = text.split(/(?<=\.)\s+/);
-            for (const sentence of sentences) {
-                const m = sentence.match(/^[Ii]n\s+(\d{3,4}),?\s+(.{15,})/);
-                if (m) addEvent(parseInt(m[1]), m[2]);
-            }
-        }
-
-        return events;
-    },
-
-    // Main entry: search Wikipedia for topic-related events
-    async searchTopicEvents(topic, statusCallback) {
-        if (statusCallback) statusCallback(`Searching Wikipedia for "${topic}"...`);
-
-        // Strategy: search for "Timeline of X", "History of X", and plain "X"
-        const searchQueries = [
-            `Timeline of ${topic}`,
-            `History of ${topic}`,
-            topic,
-        ];
-
-        // Find relevant page titles
-        let allTitles = [];
-        for (const q of searchQueries) {
-            try {
-                const titles = await this.searchPages(q);
-                allTitles.push(...titles);
-            } catch { /* continue */ }
-        }
-
-        // Deduplicate titles, prioritise timeline/history pages
-        const uniqueTitles = [...new Set(allTitles)];
-        uniqueTitles.sort((a, b) => {
-            const scoreA = /^(timeline|history)/i.test(a) ? 0 : 1;
-            const scoreB = /^(timeline|history)/i.test(b) ? 0 : 1;
-            return scoreA - scoreB;
-        });
-
-        // Fetch content from top pages (limit to 5 to be respectful of API)
-        const pagesToFetch = uniqueTitles.slice(0, 5);
-        let allEvents = [];
-
-        const promises = pagesToFetch.map(async (title) => {
-            if (statusCallback) statusCallback(`Reading "${title}"...`);
-            try {
-                return await this.fetchAndParsePageEvents(title);
-            } catch {
-                return [];
-            }
-        });
-
-        const results = await Promise.all(promises);
-        allEvents = results.flat();
-
-        // Deduplicate by year (keep first occurrence — timeline pages are parsed first)
-        const byYear = new Map();
-        for (const e of allEvents) {
-            if (!byYear.has(e.year)) {
-                byYear.set(e.year, e);
-            }
-        }
-
-        const unique = Array.from(byYear.values());
-        if (statusCallback) statusCallback(`Found ${unique.length} events`);
-        return this.selectDiverse(unique, EVENTS_PER_GAME);
     },
 
     shuffle(arr) {
@@ -595,6 +747,13 @@ class GameUI {
     }
 
     bindEvents() {
+        // Event count slider
+        const slider = document.getElementById('event-count');
+        const display = document.getElementById('event-count-display');
+        slider.addEventListener('input', () => {
+            display.textContent = slider.value;
+        });
+
         // Difficulty buttons on the start screen
         document.querySelectorAll('.btn-difficulty').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -603,31 +762,15 @@ class GameUI {
             });
         });
 
-        // Custom topic mode
-        const customBtn = document.getElementById('btn-custom');
-        const customArea = document.getElementById('custom-input-area');
-        const customInput = document.getElementById('custom-topic');
-        const customGo = document.getElementById('btn-go');
-        const customError = document.getElementById('custom-error');
-
-        customBtn.addEventListener('click', () => {
-            customArea.classList.toggle('hidden');
-            customError.classList.add('hidden');
-            if (!customArea.classList.contains('hidden')) {
-                customInput.focus();
-            }
-        });
-
-        customGo.addEventListener('click', () => this.startCustomGame());
-        customInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') this.startCustomGame();
+        // Category topic buttons
+        document.querySelectorAll('.btn-category').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const category = btn.dataset.category;
+                this.startCategoryGame(category);
+            });
         });
 
         document.getElementById('btn-replay').addEventListener('click', () => {
-            // Reset the custom input area when returning to start
-            customArea.classList.add('hidden');
-            customError.classList.add('hidden');
-            customInput.value = '';
             this.showScreen('start');
         });
     }
@@ -638,11 +781,14 @@ class GameUI {
         }
     }
 
+    getEventCount() {
+        return parseInt(document.getElementById('event-count').value) || EVENTS_PER_GAME;
+    }
+
     async startGame(difficulty) {
+        const count = this.getEventCount();
         this.showScreen('loading');
 
-        // Strategy: curated events are the backbone for Easy/Medium (quality guarantee).
-        // Wikipedia events supplement Medium and are primary for Hard (more obscure).
         const curated = WikipediaService.shuffle(EVENT_POOLS[difficulty] || EASY_EVENTS);
 
         let wikiEvents = [];
@@ -658,24 +804,21 @@ class GameUI {
 
         let events;
         if (difficulty === 'easy') {
-            // Easy: curated only — these are guaranteed well-known
             this.loadingStatus.textContent = 'Preparing well-known events...';
-            events = curated.slice(0, EVENTS_PER_GAME);
+            events = curated.slice(0, count);
         } else if (difficulty === 'medium') {
-            // Medium: curated first, fill remaining slots with Wikipedia
             const curatedYears = new Set(curated.map(e => e.year));
             const wikiFiltered = wikiEvents.filter(e => !curatedYears.has(e.year));
             events = [...curated, ...WikipediaService.shuffle(wikiFiltered)]
-                .slice(0, EVENTS_PER_GAME);
+                .slice(0, count);
         } else {
-            // Hard: Wikipedia first (obscure events), curated as backup
             if (wikiEvents.length >= 12) {
                 const wikiYears = new Set(wikiEvents.map(e => e.year));
                 const curatedFiltered = curated.filter(e => !wikiYears.has(e.year));
                 events = [...wikiEvents, ...WikipediaService.shuffle(curatedFiltered)]
-                    .slice(0, EVENTS_PER_GAME);
+                    .slice(0, count);
             } else {
-                events = curated.slice(0, EVENTS_PER_GAME);
+                events = curated.slice(0, count);
             }
         }
 
@@ -684,40 +827,14 @@ class GameUI {
         this.renderAll();
     }
 
-    async startCustomGame() {
-        const input = document.getElementById('custom-topic');
-        const errorEl = document.getElementById('custom-error');
-        const topic = input.value.trim();
+    startCategoryGame(categoryKey) {
+        const count = this.getEventCount();
+        const category = CATEGORY_POOLS[categoryKey];
+        if (!category) return;
 
-        if (!topic) {
-            errorEl.textContent = 'Please enter a topic.';
-            errorEl.classList.remove('hidden');
-            return;
-        }
-
-        errorEl.classList.add('hidden');
-        this.showScreen('loading');
-
-        let events;
-        try {
-            events = await WikipediaService.searchTopicEvents(topic, (status) => {
-                this.loadingStatus.textContent = status;
-            });
-        } catch {
-            events = [];
-        }
-
-        if (events.length < 5) {
-            // Not enough events found — go back and show error
-            this.showScreen('start');
-            document.getElementById('custom-input-area').classList.remove('hidden');
-            errorEl.textContent = `Only found ${events.length} events for "${topic}". Try a broader topic.`;
-            errorEl.classList.remove('hidden');
-            return;
-        }
-
-        this.game.init(events, 'custom');
-        this.game.topicName = topic;
+        const events = WikipediaService.shuffle(category.events).slice(0, count);
+        this.game.init(events, 'category');
+        this.game.topicName = category.name;
         this.showScreen('game');
         this.renderAll();
     }
@@ -883,12 +1000,12 @@ class GameUI {
     getGameOverMessage(score, isWin, difficulty) {
         const topicName = this.game.topicName;
         if (isWin) {
-            if (difficulty === 'custom') return `Perfect! You nailed every "${topicName}" event!`;
+            if (difficulty === 'category') return `Perfect! You nailed every "${topicName}" event!`;
             if (difficulty === 'hard') return "Incredible! You mastered the hardest events!";
             if (difficulty === 'medium') return "Impressive — you nailed every event!";
             return "Perfect run! Ready for a harder challenge?";
         }
-        if (difficulty === 'custom') {
+        if (difficulty === 'category') {
             if (score <= 2) return `"${topicName}" is trickier than you thought!`;
             if (score <= 5) return `Not bad for "${topicName}"! Give it another shot.`;
             return `Impressive "${topicName}" knowledge!`;

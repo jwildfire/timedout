@@ -36,16 +36,24 @@
                         <span class="diff-desc">Only for history buffs</span>
                     </button>
                 </div>
-                <div class="custom-divider"><span>or</span></div>
-                <button class="btn-custom" id="btn-custom">
-                    <span class="custom-icon">🔍</span>
-                    <span class="custom-label">Custom Topic</span>
-                </button>
-                <div class="custom-input-area hidden" id="custom-input-area">
-                    <input type="text" id="custom-topic" class="custom-input" placeholder="e.g., Space Exploration, Ancient Rome..." autocomplete="off" />
-                    <button class="btn-go" id="btn-go">Go</button>
+                <div class="event-count-picker">
+                    <label class="event-count-label"># of Events: <span id="event-count-display">20</span></label>
+                    <input type="range" id="event-count" class="event-count-slider" min="10" max="30" value="20" step="5" />
+                    <div class="event-count-range"><span>10</span><span>30</span></div>
                 </div>
-                <p class="custom-error hidden" id="custom-error"></p>
+                <div class="custom-divider"><span>or pick a topic</span></div>
+                <div class="category-buttons" id="category-buttons">
+                    <button class="btn-category" data-category="presidents">🇺🇸 Presidents</button>
+                    <button class="btn-category" data-category="space">🚀 Space</button>
+                    <button class="btn-category" data-category="videogames">🎮 Video Games</button>
+                    <button class="btn-category" data-category="wars">⚔️ Wars</button>
+                    <button class="btn-category" data-category="sports">🏅 Sports</button>
+                    <button class="btn-category" data-category="music">🎵 Music</button>
+                    <button class="btn-category" data-category="movies">🎬 Movies & TV</button>
+                    <button class="btn-category" data-category="science">🔬 Science</button>
+                    <button class="btn-category" data-category="ancient">🏛️ Ancient World</button>
+                    <button class="btn-category" data-category="food">🍔 Food & Drink</button>
+                </div>
             </div>
         </div>
     </div>
