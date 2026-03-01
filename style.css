@@ -921,6 +921,134 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* ============ Dad Mode Toggle ============ */
+.dad-mode-row {
+    margin-top: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    padding-bottom: 1rem;
+}
+
+.dad-toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.dad-toggle-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.dad-toggle-switch {
+    width: 50px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    position: relative;
+    transition: background 0.25s ease;
+    flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.dad-toggle-switch::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.25s ease;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+.dad-toggle-input:checked + .dad-toggle-switch {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.dad-toggle-input:checked + .dad-toggle-switch::before {
+    transform: translateX(22px);
+}
+
+.dad-toggle-text {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-heading);
+}
+
+.dad-toggle-hint {
+    font-size: 0.75rem;
+    color: var(--text-body);
+    opacity: 0.6;
+}
+
+/* ============ Dad Mode — Current Card ============ */
+body.dad-mode .event-card {
+    padding: 1.5rem 2rem;
+}
+
+body.dad-mode .card-text {
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+body.dad-mode .card-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+}
+
+/* ============ Dad Mode — Hover Tooltip ============ */
+.dad-tooltip {
+    position: fixed;
+    z-index: 999;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease, transform 0.15s ease;
+    transform: translateY(6px);
+}
+
+.dad-tooltip.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dad-tooltip-inner {
+    background: var(--bg-card);
+    border: 2px solid var(--accent);
+    border-radius: 16px;
+    padding: 1.2rem 1.4rem;
+    width: 260px;
+    text-align: center;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55), 0 0 28px var(--accent-glow);
+}
+
+.dad-tooltip-year {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.dad-tooltip-text {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
 /* ============ Responsive ============ */
 @media (max-width: 600px) {
     .title {

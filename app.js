@@ -728,8 +728,10 @@ class GameUI {
     constructor() {
         this.game = new Game();
         this.isAnimating = false;
+        this.dadMode = localStorage.getItem('dadMode') === 'true';
         this.bindElements();
         this.bindEvents();
+        if (this.dadMode) document.body.classList.add('dad-mode');
     }
 
     bindElements() {
@@ -753,6 +755,7 @@ class GameUI {
         this.gameoverTitleEl = document.getElementById('gameover-title');
         this.gameoverIconEl = document.getElementById('gameover-icon');
         this.gameoverMsgEl = document.getElementById('gameover-message');
+        this.dadTooltipEl = document.getElementById('dad-tooltip');
     }
 
     bindEvents() {
@@ -800,6 +803,71 @@ class GameUI {
         document.getElementById('btn-replay').addEventListener('click', () => {
             this.showScreen('start');
         });
+
+        // Dad mode toggle
+        const dadToggle = document.getElementById('dad-mode-toggle');
+        dadToggle.checked = this.dadMode;
+        dadToggle.addEventListener('change', () => {
+            this.dadMode = dadToggle.checked;
+            localStorage.setItem('dadMode', this.dadMode);
+            document.body.classList.toggle('dad-mode', this.dadMode);
+            if (!this.dadMode) this.hideDadTooltip();
+        });
+
+        // Dad mode tooltip — event delegation on the timeline container
+        this.timelineEl.addEventListener('mouseover', (e) => {
+            if (!this.dadMode) return;
+            const card = e.target.closest('.timeline-card');
+            if (!card) return;
+            this.showDadTooltip(card);
+        });
+        this.timelineEl.addEventListener('mouseout', (e) => {
+            if (!this.dadMode) return;
+            const card = e.target.closest('.timeline-card');
+            if (!card) return;
+            // Only hide if the pointer is leaving to something outside any timeline card
+            if (!e.relatedTarget || !e.relatedTarget.closest('.timeline-card')) {
+                this.hideDadTooltip();
+            }
+        });
+    }
+
+    showDadTooltip(cardEl) {
+        const year = cardEl.dataset.year || '';
+        const text = cardEl.dataset.text || cardEl.querySelector('.timeline-text')?.textContent || '';
+        const rect = cardEl.getBoundingClientRect();
+
+        this.dadTooltipEl.innerHTML = `
+            <div class="dad-tooltip-inner">
+                <div class="dad-tooltip-year">${year}</div>
+                <div class="dad-tooltip-text">${text}</div>
+            </div>
+        `;
+
+        const tooltipWidth = 260;
+        // Center horizontally over the card, clamped to viewport
+        let left = rect.left + rect.width / 2 - tooltipWidth / 2;
+        left = Math.max(10, Math.min(left, window.innerWidth - tooltipWidth - 10));
+        this.dadTooltipEl.style.left = `${left}px`;
+        this.dadTooltipEl.style.top = `${rect.top}px`; // temporary
+
+        this.dadTooltipEl.classList.add('show');
+
+        // Reposition after layout so we know the tooltip height
+        requestAnimationFrame(() => {
+            const h = this.dadTooltipEl.offsetHeight;
+            const above = rect.top - h - 14;
+            if (above >= 8) {
+                this.dadTooltipEl.style.top = `${above}px`;
+            } else {
+                // Not enough room above — show below
+                this.dadTooltipEl.style.top = `${rect.bottom + 14}px`;
+            }
+        });
+    }
+
+    hideDadTooltip() {
+        this.dadTooltipEl.classList.remove('show');
     }
 
     showScreen(name) {
@@ -980,6 +1048,8 @@ class GameUI {
                 const card = document.createElement('div');
                 card.className = 'timeline-card';
                 card.id = `tcard-${i}`;
+                card.dataset.year = event.year;
+                card.dataset.text = event.text; // full untruncated text for dad tooltip
                 card.innerHTML = `
                     <div class="timeline-year">${event.year}</div>
                     <div class="timeline-text">${this.truncate(event.text, 80)}</div>

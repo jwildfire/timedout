@@ -56,9 +56,20 @@
                     <button class="btn-category" data-category="ancient">🏛️ Ancient World</button>
                     <button class="btn-category" data-category="food">🍔 Food & Drink</button>
                 </div>
+                <div class="dad-mode-row">
+                    <label class="dad-toggle-label" for="dad-mode-toggle">
+                        <input type="checkbox" id="dad-mode-toggle" class="dad-toggle-input">
+                        <span class="dad-toggle-switch"></span>
+                        <span class="dad-toggle-text">👓 Dad Mode</span>
+                    </label>
+                    <span class="dad-toggle-hint">Hover cards to zoom</span>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- Dad Mode Hover Tooltip -->
+    <div id="dad-tooltip" class="dad-tooltip" aria-hidden="true"></div>
 
     <!-- Loading Screen -->
     <div id="screen-loading" class="screen">
