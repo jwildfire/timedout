@@ -8,6 +8,7 @@ const EVENTS_PER_GAME = 20;
 // ============ Curated Event Pools by Difficulty ============
 // Easy: Iconic events everyone learns in school
 const EASY_EVENTS = [
+    // Original 25
     { year: 1492, text: "Christopher Columbus reaches the Americas" },
     { year: 1776, text: "The United States Declaration of Independence is adopted" },
     { year: 1789, text: "The French Revolution begins with the storming of the Bastille" },
@@ -33,6 +34,94 @@ const EASY_EVENTS = [
     { year: 1957, text: "The Soviet Union launches Sputnik, the first artificial satellite" },
     { year: 1953, text: "Edmund Hillary and Tenzing Norgay reach the summit of Mount Everest" },
     { year: 2004, text: "Facebook is founded by Mark Zuckerberg" },
+    // Ancient & Medieval
+    { year: 753, text: "According to legend, Rome is founded by Romulus and Remus" },
+    { year: 1066, text: "William the Conqueror wins the Battle of Hastings" },
+    { year: 1347, text: "The Black Death arrives in Europe, killing millions" },
+    { year: 1455, text: "Johannes Gutenberg prints the first Bible using movable type" },
+    // Age of Exploration & Renaissance
+    { year: 1503, text: "Leonardo da Vinci begins painting the Mona Lisa" },
+    { year: 1519, text: "Ferdinand Magellan begins the first voyage around the world" },
+    { year: 1588, text: "The English Navy defeats the Spanish Armada" },
+    { year: 1620, text: "The Pilgrims arrive at Plymouth Rock aboard the Mayflower" },
+    { year: 1666, text: "The Great Fire of London destroys much of the city" },
+    // 1700s
+    { year: 1752, text: "Benjamin Franklin flies a kite in a thunderstorm to study electricity" },
+    { year: 1770, text: "Ludwig van Beethoven is born in Bonn, Germany" },
+    { year: 1773, text: "The Boston Tea Party protests British taxation in colonial America" },
+    { year: 1783, text: "The first hot air balloon flight takes place in Paris" },
+    { year: 1799, text: "The Rosetta Stone is discovered in Egypt" },
+    // Early 1800s
+    { year: 1804, text: "Napoleon Bonaparte crowns himself Emperor of France" },
+    { year: 1815, text: "Napoleon is defeated at the Battle of Waterloo" },
+    { year: 1825, text: "The world's first public railway opens in England" },
+    { year: 1835, text: "Charles Darwin visits the Galapagos Islands on HMS Beagle" },
+    { year: 1848, text: "The California Gold Rush begins after gold is found at Sutter's Mill" },
+    // Mid-Late 1800s
+    { year: 1859, text: "Charles Darwin publishes On the Origin of Species" },
+    { year: 1863, text: "Abraham Lincoln issues the Emancipation Proclamation" },
+    { year: 1869, text: "The Transcontinental Railroad is completed in the United States" },
+    { year: 1879, text: "Thomas Edison demonstrates the first practical electric light bulb" },
+    { year: 1886, text: "The Statue of Liberty is dedicated in New York Harbor" },
+    { year: 1889, text: "The Eiffel Tower is completed for the Paris World's Fair" },
+    { year: 1896, text: "The first modern Olympic Games are held in Athens, Greece" },
+    // Early 1900s
+    { year: 1901, text: "Queen Victoria dies after 63 years on the British throne" },
+    { year: 1905, text: "Albert Einstein publishes his special theory of relativity" },
+    { year: 1906, text: "A massive earthquake and fire devastate San Francisco" },
+    { year: 1908, text: "Henry Ford introduces the Model T automobile" },
+    { year: 1917, text: "The Russian Revolution overthrows the Tsar" },
+    { year: 1918, text: "World War I ends with the signing of the Armistice" },
+    { year: 1920, text: "American women win the right to vote with the 19th Amendment" },
+    { year: 1927, text: "Charles Lindbergh completes the first solo transatlantic flight" },
+    { year: 1928, text: "Alexander Fleming discovers penicillin" },
+    // 1930s-1940s
+    { year: 1933, text: "Adolf Hitler becomes Chancellor of Germany" },
+    { year: 1937, text: "The Hindenburg airship explodes in New Jersey" },
+    { year: 1944, text: "Allied forces land on the beaches of Normandy on D-Day" },
+    { year: 1948, text: "The State of Israel is established" },
+    { year: 1949, text: "NATO is founded as a Western military alliance" },
+    // 1950s-1960s
+    { year: 1950, text: "The Korean War begins" },
+    { year: 1954, text: "Roger Bannister runs the first sub-four-minute mile" },
+    { year: 1959, text: "Fidel Castro takes power in Cuba" },
+    { year: 1961, text: "Yuri Gagarin becomes the first human in space" },
+    { year: 1962, text: "The Cuban Missile Crisis brings the world to the brink of nuclear war" },
+    { year: 1964, text: "The Beatles arrive in America, launching the British Invasion" },
+    { year: 1966, text: "England wins the FIFA World Cup for the first and only time" },
+    { year: 1968, text: "Martin Luther King Jr. is assassinated in Memphis, Tennessee" },
+    // 1970s
+    { year: 1971, text: "Walt Disney World opens in Orlando, Florida" },
+    { year: 1972, text: "The Watergate scandal begins with a break-in at Democratic headquarters" },
+    { year: 1975, text: "The Vietnam War ends with the fall of Saigon" },
+    { year: 1976, text: "Apple Computer is founded by Steve Jobs and Steve Wozniak" },
+    { year: 1977, text: "Star Wars is released in theaters and becomes a cultural phenomenon" },
+    { year: 1979, text: "Margaret Thatcher becomes Britain's first female Prime Minister" },
+    // 1980s
+    { year: 1980, text: "John Lennon is shot and killed in New York City" },
+    { year: 1981, text: "Princess Diana marries Prince Charles in a globally televised wedding" },
+    { year: 1984, text: "The Apple Macintosh personal computer is introduced" },
+    { year: 1986, text: "The Chernobyl nuclear disaster occurs in Ukraine" },
+    // 1990s
+    { year: 1990, text: "Tim Berners-Lee invents the World Wide Web" },
+    { year: 1991, text: "The Soviet Union officially dissolves" },
+    { year: 1993, text: "Jurassic Park becomes the highest-grossing film at the time" },
+    { year: 1997, text: "Princess Diana dies in a car crash in Paris" },
+    { year: 1998, text: "Google is founded by Larry Page and Sergey Brin" },
+    { year: 1999, text: "The Euro currency is introduced across much of Europe" },
+    // 2000s
+    { year: 2003, text: "The Human Genome Project is completed" },
+    { year: 2005, text: "Hurricane Katrina devastates New Orleans" },
+    { year: 2008, text: "Barack Obama is elected as the first Black president of the United States" },
+    { year: 2009, text: "Michael Jackson dies, sparking worldwide mourning" },
+    // 2010s-2020s
+    { year: 2010, text: "The Deepwater Horizon oil spill becomes the worst in US history" },
+    { year: 2011, text: "Osama bin Laden is killed by US forces in Pakistan" },
+    { year: 2012, text: "The Higgs boson particle is discovered at CERN" },
+    { year: 2014, text: "The Ice Bucket Challenge goes viral, raising awareness for ALS" },
+    { year: 2016, text: "The United Kingdom votes to leave the European Union" },
+    { year: 2018, text: "The Thai cave rescue saves twelve boys and their soccer coach" },
+    { year: 2022, text: "Russia invades Ukraine, sparking the largest European conflict in decades" },
 ];
 
 // Medium: Important milestones an educated person would likely know
@@ -490,6 +579,7 @@ class GameUI {
             gameover: document.getElementById('screen-gameover'),
         };
         this.scoreEl = document.getElementById('score');
+        this.remainingEl = document.getElementById('remaining');
         this.livesEl = document.getElementById('lives');
         this.currentCardEl = document.getElementById('current-card');
         this.currentTextEl = document.getElementById('current-event-text');
@@ -634,6 +724,7 @@ class GameUI {
 
     renderAll() {
         this.renderScore();
+        this.renderRemaining();
         this.renderLives();
         this.renderCurrentCard();
         this.renderTimeline();
@@ -641,6 +732,10 @@ class GameUI {
 
     renderScore() {
         this.scoreEl.textContent = this.game.score;
+    }
+
+    renderRemaining() {
+        this.remainingEl.textContent = this.game.deck.length;
     }
 
     renderLives() {
@@ -720,6 +815,7 @@ class GameUI {
 
         this.showToast(result);
         this.renderScore();
+        this.renderRemaining();
         this.renderLives();
 
         setTimeout(() => {

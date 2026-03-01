@@ -360,6 +360,12 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+.header-left {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
 .header-score {
     font-size: 1rem;
     font-weight: 600;
@@ -367,6 +373,17 @@ body {
 }
 
 .header-score span {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.header-remaining {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-body);
+}
+
+.header-remaining span {
     color: var(--accent);
     font-weight: 700;
 }
