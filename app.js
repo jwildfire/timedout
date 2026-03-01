@@ -646,6 +646,9 @@ class Game {
         this.lives = MAX_LIVES;
         this.score = 0;
         this.difficulty = 'easy';
+        this.endless = false;
+        this.allEvents = [];
+        this.topicName = null;
     }
 
     init(events, difficulty) {
@@ -706,11 +709,17 @@ class Game {
     }
 
     get isGameOver() {
+        if (this.endless) return this.lives <= 0;
         return this.lives <= 0 || this.currentCard === null;
     }
 
     get isWin() {
+        if (this.endless) return false; // endless never wins
         return this.lives > 0 && this.currentCard === null;
+    }
+
+    get isDeckEmpty() {
+        return this.currentCard === null && this.deck.length === 0;
     }
 }
 
@@ -768,6 +777,24 @@ class GameUI {
                 const category = btn.dataset.category;
                 this.startCategoryGame(category);
             });
+        });
+
+        // Endless mode button
+        document.getElementById('btn-endless').addEventListener('click', () => {
+            this.startEndlessGame();
+        });
+
+        // Main menu buttons (game screen and game over screen)
+        document.getElementById('btn-menu-game').addEventListener('click', () => {
+            this.showScreen('start');
+        });
+        document.getElementById('btn-menu-gameover').addEventListener('click', () => {
+            this.showScreen('start');
+        });
+
+        // Reset events button (endless mode)
+        document.getElementById('btn-reset-events').addEventListener('click', () => {
+            this.resetEndlessEvents();
         });
 
         document.getElementById('btn-replay').addEventListener('click', () => {
@@ -839,6 +866,64 @@ class GameUI {
         this.renderAll();
     }
 
+    startEndlessGame() {
+        // Collect ALL events from every pool
+        const all = [
+            ...EASY_EVENTS,
+            ...MEDIUM_EVENTS,
+            ...HARD_EVENTS,
+        ];
+        for (const cat of Object.values(CATEGORY_POOLS)) {
+            all.push(...cat.events);
+        }
+
+        // Deduplicate by year+text (keep first seen)
+        const seen = new Set();
+        const unique = [];
+        for (const e of all) {
+            const key = `${e.year}|${e.text}`;
+            if (!seen.has(key)) {
+                seen.add(key);
+                unique.push(e);
+            }
+        }
+
+        const shuffled = WikipediaService.shuffle(unique);
+        this.game.init(shuffled, 'endless');
+        this.game.endless = true;
+        this.game.allEvents = unique; // keep full pool for resets
+        this.game.topicName = 'Endless';
+
+        // Hide reset button at start
+        document.getElementById('btn-reset-events').classList.add('hidden');
+
+        this.showScreen('game');
+        this.renderAll();
+    }
+
+    resetEndlessEvents() {
+        if (!this.game.endless) return;
+
+        // Get years already on the timeline
+        const timelineYears = new Set(this.game.timeline.map(e => e.year));
+
+        // Filter out events whose year is already on the timeline
+        const available = this.game.allEvents.filter(e => !timelineYears.has(e.year));
+
+        if (available.length === 0) return; // no more events possible
+
+        // Shuffle and refill deck
+        const shuffled = WikipediaService.shuffle(available);
+        this.game.deck = shuffled.slice(1);
+        this.game.currentCard = shuffled[0];
+
+        // Hide reset button, show card again
+        document.getElementById('btn-reset-events').classList.add('hidden');
+        this.currentCardEl.classList.remove('hidden');
+
+        this.renderAll();
+    }
+
     renderAll() {
         this.renderScore();
         this.renderRemaining();
@@ -868,6 +953,7 @@ class GameUI {
         const card = this.game.currentCard;
         if (!card) return;
 
+        this.currentCardEl.classList.remove('hidden');
         this.currentTextEl.textContent = card.text;
         this.currentCardEl.style.animation = 'none';
         this.currentCardEl.offsetHeight; // reflow
@@ -942,6 +1028,10 @@ class GameUI {
 
             if (this.game.isGameOver) {
                 this.showGameOver();
+            } else if (this.game.endless && this.game.isDeckEmpty) {
+                // Endless mode: deck ran out, show reset button
+                this.currentCardEl.classList.add('hidden');
+                document.getElementById('btn-reset-events').classList.remove('hidden');
             } else {
                 this.renderCurrentCard();
             }
@@ -1004,6 +1094,12 @@ class GameUI {
             if (difficulty === 'hard') return "Incredible! You mastered the hardest events!";
             if (difficulty === 'medium') return "Impressive — you nailed every event!";
             return "Perfect run! Ready for a harder challenge?";
+        }
+        if (difficulty === 'endless') {
+            if (score <= 5) return "The timeline is infinite — give it another go!";
+            if (score <= 15) return "Solid run through the ages!";
+            if (score <= 30) return "You're a walking history encyclopedia!";
+            return `Legendary! ${score} events placed in endless mode!`;
         }
         if (difficulty === 'category') {
             if (score <= 2) return `"${topicName}" is trickier than you thought!`;

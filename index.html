@@ -41,6 +41,8 @@
                     <input type="range" id="event-count" class="event-count-slider" min="10" max="30" value="20" step="5" />
                     <div class="event-count-range"><span>10</span><span>30</span></div>
                 </div>
+                <div class="custom-divider"><span>or</span></div>
+                <button class="btn-endless" id="btn-endless">♾️ Endless Mode</button>
                 <div class="custom-divider"><span>or pick a topic</span></div>
                 <div class="category-buttons" id="category-buttons">
                     <button class="btn-category" data-category="presidents">🇺🇸 Presidents</button>
@@ -75,7 +77,10 @@
                 <div class="header-remaining">Left: <span id="remaining">0</span></div>
             </div>
             <div class="header-title">TIMED OUT</div>
-            <div class="header-lives" id="lives"></div>
+            <div class="header-right">
+                <div class="header-lives" id="lives"></div>
+                <button class="btn-menu" id="btn-menu-game" title="Main Menu">✕</button>
+            </div>
         </header>
 
         <div class="current-card-area">
@@ -84,6 +89,7 @@
                 <p class="card-text" id="current-event-text"></p>
                 <div class="card-year">????</div>
             </div>
+            <button id="btn-reset-events" class="btn-reset-events hidden">🔄 Reset Events</button>
         </div>
 
         <p class="instruction" id="instruction">Tap a slot to place this event on the timeline</p>
@@ -112,7 +118,10 @@
             <div class="final-timeline-wrapper">
                 <div class="final-timeline" id="final-timeline"></div>
             </div>
-            <button id="btn-replay" class="btn-primary">Play Again</button>
+            <div class="gameover-buttons">
+                <button id="btn-replay" class="btn-primary">Play Again</button>
+                <button id="btn-menu-gameover" class="btn-secondary">Main Menu</button>
+            </div>
         </div>
     </div>
 
