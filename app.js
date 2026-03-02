@@ -756,6 +756,7 @@ class GameUI {
         this.gameoverIconEl = document.getElementById('gameover-icon');
         this.gameoverMsgEl = document.getElementById('gameover-message');
         this.dadTooltipEl = document.getElementById('dad-tooltip');
+        this.readClueBtn = document.getElementById('btn-read-clue');
     }
 
     bindEvents() {
@@ -814,6 +815,9 @@ class GameUI {
             if (!this.dadMode) this.hideDadTooltip();
         });
 
+        // Read clue button
+        this.readClueBtn.addEventListener('click', () => this.readClue());
+
         // Dad mode tooltip — event delegation on the timeline container
         this.timelineEl.addEventListener('mouseover', (e) => {
             if (!this.dadMode) return;
@@ -868,6 +872,32 @@ class GameUI {
 
     hideDadTooltip() {
         this.dadTooltipEl.classList.remove('show');
+    }
+
+    readClue() {
+        if (!window.speechSynthesis) return;
+
+        // If already speaking, stop and reset button
+        if (window.speechSynthesis.speaking) {
+            window.speechSynthesis.cancel();
+            this.readClueBtn.classList.remove('speaking');
+            return;
+        }
+
+        const text = this.game.currentCard?.text;
+        if (!text) return;
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.92;
+        this.readClueBtn.classList.add('speaking');
+        utterance.onend = () => this.readClueBtn.classList.remove('speaking');
+        utterance.onerror = () => this.readClueBtn.classList.remove('speaking');
+        window.speechSynthesis.speak(utterance);
+    }
+
+    stopSpeech() {
+        if (window.speechSynthesis?.speaking) window.speechSynthesis.cancel();
+        this.readClueBtn?.classList.remove('speaking');
     }
 
     showScreen(name) {
@@ -1021,6 +1051,7 @@ class GameUI {
         const card = this.game.currentCard;
         if (!card) return;
 
+        this.stopSpeech();
         this.currentCardEl.classList.remove('hidden');
         this.currentTextEl.textContent = card.text;
         this.currentCardEl.style.animation = 'none';
@@ -1125,6 +1156,7 @@ class GameUI {
     }
 
     showGameOver() {
+        this.stopSpeech();
         const isWin = this.game.isWin;
         const diff = this.game.difficulty;
         const diffLabel = diff.charAt(0).toUpperCase() + diff.slice(1);

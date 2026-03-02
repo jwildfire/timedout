@@ -568,6 +568,37 @@ body {
     letter-spacing: 0.1em;
 }
 
+/* ============ Read Clue Button ============ */
+.btn-read-clue {
+    position: absolute;
+    bottom: 0.55rem;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.05rem;
+    line-height: 1;
+    padding: 0.2rem 0.3rem;
+    border-radius: 8px;
+    opacity: 0.45;
+    transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.btn-read-clue:hover {
+    opacity: 1;
+    background: rgba(255, 137, 6, 0.12);
+}
+
+.btn-read-clue.speaking {
+    opacity: 1;
+    animation: speakPulse 0.75s ease-in-out infinite;
+}
+
+@keyframes speakPulse {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.35); }
+}
+
 /* ============ Instruction ============ */
 .instruction {
     text-align: center;
